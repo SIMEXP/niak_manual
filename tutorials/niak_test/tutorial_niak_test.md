@@ -8,9 +8,9 @@ Then simply type:
 niak_test_all
 ````
 This command will download the test dataset, as well as a series of results generated on a trusted system. All the pipelines available in NIAK will run. The tests will compare all the results generated locally with those previous results, and produce a series of reports in .csv format. 
-> report_test_regression_connectome_demoniak.csv
-> report_test_regression_region_growing_demoniak.csv
-> report_test_regression_connectome_demoniak.csv
+> * report_test_regression_connectome_demoniak.csv
+> * report_test_regression_region_growing_demoniak.csv
+> * report_test_regression_connectome_demoniak.csv
 
 Those are spreadsheets formatted as comma-separated values. Each row is about one file of the associated pipeline, and includes the following information: 
 
@@ -23,11 +23,11 @@ Those are spreadsheets formatted as comma-separated values. Each row is about on
  * 'same_dim' (boolean or NaN) the volumes have the same dimensions (.nii/.mnc) or the spreadsheets have the same dimension (.csv). NaN for any other file type. 
  * 'dice_mask_brain' (scalar in [0,1] or NaN) the dice coefficient between the brain mask of the two volumes (.nii/.mnc). NaN for any other file type. 
  * 'max_diff' (positive scalar or NaN) the max absolute difference between the two volumes (.nii/.mnc) or spreadsheets (.csv). NaN for any other file type. 
-* 'min_diff' (positive scalar or NaN) the min absolute difference between the two volumes (.nii/.mnc) or spreadsheets (.csv). NaN for any other file type. 
-* 'mean_diff' (positive scalar or NaN) the mean absolute difference between the two volumes (.nii/.mnc) or spreadsheets (.csv). NaN for any other file type. 
-* 'max_corr' (scalar in [0,1] or NaN) the max correlation between the time series of voxels inside the brain mask between two 4D volumes (.nii/.mnc). NaN for any other file type. 
-* 'min_corr' (scalar in [0,1] or NaN) the min correlation between the time series of voxels inside the brain mask between two 4D volumes (.nii/.mnc). NaN for any other file type. 
-* 'mean_corr' (scalar in [0,1] or NaN) the mean correlation between the time series of voxels inside the brain mask between two 4D volumes (.nii/.mnc). NaN for any other file type.
+ * 'min_diff' (positive scalar or NaN) the min absolute difference between the two volumes (.nii/.mnc) or spreadsheets (.csv). NaN for any other file type. 
+ * 'mean_diff' (positive scalar or NaN) the mean absolute difference between the two volumes (.nii/.mnc) or spreadsheets (.csv). NaN for any other file type. 
+ * 'max_corr' (scalar in [0,1] or NaN) the max correlation between the time series of voxels inside the brain mask between two 4D volumes (.nii/.mnc). NaN for any other file type. 
+ * 'min_corr' (scalar in [0,1] or NaN) the min correlation between the time series of voxels inside the brain mask between two 4D volumes (.nii/.mnc). NaN for any other file type. 
+ * 'mean_corr' (scalar in [0,1] or NaN) the mean correlation between the time series of voxels inside the brain mask between two 4D volumes (.nii/.mnc). NaN for any other file type.
 
 Two files are identical if they exist in both source and target and 
 
