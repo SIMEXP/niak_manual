@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="309.43085"
+   height="363.65286"
+   viewBox="0 0 309.43085 363.65286"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="frame_tutorial.svg">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter4207"
+       x="-0.028000001"
+       width="1.056"
+       y="-0.021"
+       height="1.0420001">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="3.408638"
+         id="feGaussianBlur4209" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="360.19455"
+     inkscape:cy="331.64944"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(6.8582855,-687.67245)">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.97389656;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter4207)"
+       id="rect4157-3"
+       width="292.16898"
+       height="389.55862"
+       x="1.7726533"
+       y="654.01141"
+       ry="19.365839"
+       transform="matrix(1.0029184,0,0,0.89587296,-0.43150593,109.0902)" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.93062055;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4157"
+       width="294.3569"
+       height="353.06308"
+       x="-0.74897546"
+       y="690.2948"
+       ry="17.551565" />
+  </g>
+</svg>
