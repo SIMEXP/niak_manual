@@ -1,0 +1,223 @@
+\documentclass[11pt,french]{beamer}
+
+\usepackage{pgf}
+\usetheme{Antibes}
+\usecolortheme{dolphin} 
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % pour les accents
+\usepackage{ marvosym }
+\begin{document}
+
+
+\pgfdeclareimage[width=10cm]{logos_criugm}{logos_criugm}
+\title{Bootstrap analysis of stable clusters in resting-state fMRI}
+\author[P. Bellec]{\pgfimage[width=55pt]{basc_logo_large}\\Pierre Bellec \\ \tiny{\texttt{pierre.bellec@criugm.qc.ca}}\vspace{-0.4cm}}
+\institute[NIAK]{NeuroImaging Analysis Kit \vspace{-0.3cm}}
+\date[2015]{\pgfuseimage{logos_criugm}}
+
+\frame{\titlepage}
+
+\section{Introduction}
+
+\frame{
+\frametitle{Resting-state fMRI: functional connectivity map}
+\begin{figure}
+\pgfimage[width=0.8\linewidth]{fig_fcmri}\\
+\end{figure}
+\tiny{The posterior cingulate cortex is used as a seed to derive an individual resting-state functional connectivity map, identifying the default-mode network.}
+}
+
+\frame{
+\frametitle{Resting-state fMRI: functional connectome}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_corr_map}\\
+\end{figure}
+}
+
+\frame{
+\frametitle{Resting-state fMRI: resting-state networks}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_rsn_connectome}\\
+\end{figure}
+}
+
+\section{Hierarchical clustering on resting-state networks}
+
+\subsection{Clustering}
+
+\frame{
+\frametitle{Clustering : unsupervised classification}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_clustering}\\
+\end{figure}
+\tiny{On the left, coordinates of individuals define their similarities; on the right, HC proceeds by iterative mergings. Many clustering algorithms exist, e.g. k-means, fuzzy k-means, spectral clustering, SOM, neural gas. See Jain, Pattern Recognition Letters, 2009, for a review.}\\
+}
+
+\frame{
+\frametitle{Clustering : bi-scale approach in fMRI functional connectivity}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_lsni}\\
+\end{figure}
+\tiny{LSNI algorithm, see Bellec et al., 2006, Neuroimage, 29: 1231– 1243.}
+}
+
+\frame{
+\frametitle{Adjacency matrix representation of a clustering}
+\begin{figure}
+\pgfimage[width=0.8\linewidth]{fig_partition}\\
+\end{figure}
+}
+
+\subsection{Stability analysis}
+
+\frame{
+\frametitle{Individual-level bootstrap stability analysis}
+\begin{figure}
+\pgfimage[width=0.9\linewidth]{fig_stab_ind}\\
+\end{figure}
+}
+
+\frame{
+\frametitle{Consensus clustering}
+\begin{figure}
+\pgfimage[width=0.8\linewidth]{fig_consensus_clustering}\\
+\end{figure}
+\tiny{From Dansereau et al., Front. Neurosci. 8:419. doi: 10.3389/fnins.2014.00419.}
+}
+
+\frame{
+\frametitle{Group-level stability analysis}
+\begin{figure}
+\pgfimage[width=0.9\linewidth]{fig_stab_group}\\
+\end{figure}
+\tiny{From Bellec et al., Neuroimage 2010.}
+}
+
+\frame{
+\frametitle{Clustering : stability maps}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_stab_maps}\\
+\end{figure}
+}
+
+\section{Multiresolution stepwise selection}
+
+\frame{
+\frametitle{Stability of local maxima of stability}
+\begin{figure}
+\pgfimage[width=0.75\linewidth]{fig_msteps_part1}\\
+\end{figure}
+Individual stability contrasts for 43 subjects.\\
+}
+
+\frame{
+\frametitle{Interpolation of stability matrices I}
+\begin{figure}
+\pgfimage[width=0.65\linewidth]{fig_interpolate_stability_part1}\\
+\end{figure}
+}
+
+\frame{
+\frametitle{Interpolation of stability matrices II}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_interpolate_stability_part2}\\
+\end{figure}
+\tiny{Bellec, Proceedings of the 2013 International Workshop on Pattern Recognition in Neuroimaging (PRNI), IEEE, 2013, pp. 54-57.}
+}
+
+\frame{
+\frametitle{Multiresolution stepwise selection (MSTEPS) I}
+
+\begin{beamerboxesrounded}{Forward MSTEPS procedure}
+\begin{enumerate}
+ \item Initialization: no resolution is selected.
+ \item Select a resolution that has not yet been selected, with probability proportional to the residual sum of squares at this resolution.
+ \item Iterate (2-3) until a predefined percentage of residual sum of squares across all resolutions is reached.
+ \item Iterate the model selection $B$ times, and keep the model with smallest residual sum of squares.
+\end{enumerate}
+\end{beamerboxesrounded}
+
+}
+
+\frame{
+\frametitle{Multiresolution stepwise selection (MSTEPS) II}
+\begin{beamerboxesrounded}{Component-wise MSTEPS procedure}
+\begin{enumerate}
+ \item Initialization: run a forward MSTEPS.
+ \item For each resolution of the model, try to replace it by any of the resolutions not currently in the model.
+ \item Keep the model with the minimal residual sum of squares across all resolutions.
+ \item Iterate (2-3) until it is not possible anymore to reduce the residual sum of squares.
+\end{enumerate}
+\end{beamerboxesrounded}
+}
+
+\frame{
+\frametitle{Reproducibility of resolution selection}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_msteps_part2}\\
+\end{figure}
+}
+
+\section{Examples of partitions}
+
+\frame{
+\frametitle{Group consensus clusters as a function of resolution}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_multiscale}\\
+\end{figure}
+\tiny{Bellec PRNI 2013.}
+}
+
+
+\frame{
+\frametitle{Group consensus clusters \MVAt(resolution 2)}
+\begin{figure}
+\pgfimage[width=0.5\linewidth]{fig_sc2}\\
+\end{figure}
+\tiny{Bellec et al. HBM 2010. See Golland et al, 2008, Neuropsychologia, for more info on this resolution.}
+}
+
+\frame{
+\frametitle{Group consensus clusters \MVAt(resolution 7)}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_sc7}\\
+\end{figure}
+\tiny{Bellec et al. HBM 2010. See Yeo et al., J Neurophysiol 2011, for more info on this resolution.}
+}
+
+\frame{
+\frametitle{Sensorimotor network \MVAt(resolution 43)}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_rsn_sensorimotor_sc43}\\
+\end{figure}
+\tiny{Bellec et al. HBM 2010.}
+}
+
+\frame{
+\frametitle{Sensorimotor network, subnetwork 1 (resolution 43)\MVAt(resolution 150)}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_CMA}\\
+\end{figure}
+\tiny{Bellec et al. HBM 2010.}
+}
+
+\section{Conclusions}
+
+\frame{
+\frametitle{Summary}
+\begin{itemize}
+ \item It is possible to identify resting-state networks (RSNs) at different levels and resolutions of analysis, using BASC.
+ \item The estimation of the stability of RSNs is an important validation step.  
+ \item Rather than identifying the ``correct'' resolution (an ill-defined problem in fMRI), MSTEPS seeks representative resolutions, to approximate accurately all stability matrices.
+\end{itemize}
+}
+
+\frame{
+\frametitle{Acknowledgements}
+\begin{figure}
+\pgfimage[width=\linewidth]{fig_acknowledgement}\\
+\end{figure}
+}
+
+\end{document}
