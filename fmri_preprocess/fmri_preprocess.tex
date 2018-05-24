@@ -1,0 +1,358 @@
+
+% This is a LaTeX document to produce slides for the NIAK fMRI preprocessing pipeline.
+% The document can be compiled using LaTeX 2e and the LaTeX beamer package.
+%
+% Copyright (c) Pierre Bellec, 
+%   Montreal Neurological Institute, 2009-2017.
+%   Research Centre of the Montreal Geriatric Institute
+%   & Department of Computer Science and Operations Research
+%   University of Montreal, Québec, Canada 2010-2015
+% Maintainer : pierre.bellec@criugm.qc.ca
+% Keywords : NIAK, fMRI preprocessing, user's guide
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+% THE SOFTWARE.
+
+\documentclass{beamer}
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+% %\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid} %%%%
+%\usetheme{Malmoe}
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+\definecolor{UDMblue}{RGB}{46,78,161}
+\setbeamercolor{structure}{fg=UDMblue}
+\usepackage[framed,autolinebreaks,useliterate]{mcode}
+
+}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\definecolor{command}{rgb}{0.95,0,0.05}
+\definecolor{comment}{rgb}{0.7,0.05,0.65}
+\definecolor{string}{rgb}{0.45,0.25,0.15}
+\definecolor{in}{rgb}{0.15,0.68,0.15}
+\definecolor{out}{rgb}{0.15,0.68,0.15}
+\definecolor{clean}{rgb}{0.15,0.68,0.15}
+\definecolor{opt}{rgb}{0.05,0.1,0.75}
+
+\begin{document}
+
+\pgfdeclareimage[height=1cm]{logo_mcgill}{mcgill}
+\pgfdeclareimage[height=1cm]{logo_mni}{neurolog}
+\pgfdeclareimage[height=1cm]{angelniak}{angelniak}
+\pgfdeclareimage[height=1.5cm]{angelniak_big}{angelniak}
+\pgfdeclareimage[height=1cm]{demoniak}{demoniak}
+\pgfdeclareimage[height=1.5cm]{demoniak_big}{demoniak}
+\pgfdeclareimage[height=1cm]{logo_psom}{logo_psom}
+\pgfdeclareimage[height=1cm]{package}{package}
+\pgfdeclareimage[width=10cm]{logos_criugm}{logos_criugm}
+\pgfdeclareimage[width=5cm]{logo_email}{fig_email.png}
+\title{Preprocessing of fMRI data}
+%\pgfuseimage{logo_twitter
+\author[P. Bellec]{Pierre Bellec \\ \vspace{0.5cm}\pgfuseimage{logo_email} }
+%\institute[BIC]{\vspace{-0.2cm}}
+\date[Montr\'eal 2014]{{\scriptsize{CRIUGM, DIRO, UdM}} \pgfuseimage{logos_criugm} }
+
+\frame{\titlepage}
+
+
+\frame[containsverbatim]{
+\frametitle[flowchart]{Flowchart of the NIAK fMRI preprocessing pipeline}
+\begin{figure}[ht]
+\begin{minipage}{0.5\linewidth}
+\centering
+\pgfimage[width=\linewidth]{fig_flowchart_fmri_preprocess}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+\end{minipage}
+\end{figure}
+}
+
+\frame[containsverbatim]{
+\frametitle[Slice timing correction]{Slice timing correction}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_slice_timing}\\
+\tiny Courtesy of Dr M. P\'el\'egrini-Issac.
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[Motion estimation]{Motion estimation: within-run}
+\begin{center}
+\pgfimage[width=0.8\linewidth]{fig_motion_within_run}\\
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[Motion estimation]{Motion estimation: between-run / within-session}
+\begin{center}
+\pgfimage[width=0.8\linewidth]{fig_motion_within_session}\\
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[Motion estimation]{Motion estimation: between sessions}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_motion_between_session}\\
+\smallskip
+ Estimation of between-run (between-session) rigid-body motion.
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: linear coregistration}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_stereolin.png}\\
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: non-linear coregistration}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_stereonl.png}\\
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: linear template}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_template_lin}\\
+\smallskip
+ Linear ICBM template (average of 152 subjects)
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: linear coregistration}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_subject_lin}\\
+\smallskip
+ Individual structural scan (linear coregistration)
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: non-linear coregistration}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_subject_nl}\\
+\smallskip
+ Individual structural scan (non-linear coregistration)
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: nonlinear template}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_template_nl}\\
+\smallskip
+ Symmetric non-linear ICBM template (average of 152 subjects) release 2009a.\\
+\scriptsize{\url{http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009}}
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: group average}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_average_nl}\\
+\smallskip
+ Average of 17 subjects (non-linear coregistration)
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: Flowchart of the CIVET pipeline}
+\vspace{1cm}
+\begin{center}
+\pgfimage[width=0.9\linewidth]{fig_civet_flowchart}\\
+\smallskip
+ \small Flowchart of the T1 preprocessing.\\
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[CIVET]{T$_1$ processing: main outputs}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_civet}\\
+\smallskip
+ The main outputs of the T$_1$ processing pipeline.
+\end{center}
+}
+
+\frame[containsverbatim,shrink]{
+\frametitle[Coregister T$_1$ and fMRI]{Coregistration between the T$_1$ and fMRI volumes}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_coregister_t1_t2}\\
+\end{center}
+}
+
+
+\frame[containsverbatim]{
+\frametitle[Spatial resampling]{Spatial resampling}
+\begin{center}
+\pgfimage[width=0.8\linewidth]{fig_resample}\\
+\end{center}
+\scriptsize
+The transformations to correct for rigid-body motion during the fMRI acquisition and the transformation to match the T$_1$ image and then (non-linearly) coregister into stereotaxic space are all combined, and a single step of spatial resampling is applied.
+}
+
+\frame[containsverbatim]{
+\frametitle[Scrubbing]{Scrubbing: frame displacement}
+\begin{center}
+\pgfimage[width=0.5\linewidth]{fig_fd}\\
+\end{center}
+\scriptsize Frame displacement is the sum of absolute displacements in translation and rotation motion parameters. For each frame with excessive FD (here FD$>0.5$), four frames are suppressed (the target one + one before + two after, marked with red stars on the figure). The original method was proposed by Power et al. Neuroimage 2012. Note that, unlike the original method, only FD is used in NIAK (and not DVARS). 
+}
+
+\frame[containsverbatim]{
+\frametitle[Scrubbing]{Scrubbing: example of impact on the DMN}
+\begin{center}
+\pgfimage[width=0.8\linewidth]{fig_scrubbing}\\
+\end{center}
+See Power et al. Neuroimage 2012\&2014 for more info. 
+}
+
+\frame[containsverbatim]{
+\frametitle[Confounds]{Regress confounds: model}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_regress_confounds}\\
+\end{center}
+}
+
+\frame[containsverbatim]{
+\frametitle[Spatial smoothing]{Spatial smoothing}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_smooth}\\
+\end{center}
+}
+
+
+\frame[containsverbatim]{
+\frametitle[report]{Interactive report}
+Reports can be consulted offline or online. Live demo at \url{https://simexp.github.io/qc_cobre/}.
+\begin{center}
+\pgfimage[width=\linewidth]{fig_report}\\
+\end{center}
+}
+
+\frame[containsverbatim]{
+\frametitle[report]{Guidelines for quality control of brain registration}
+Simplified guildelines for quality control as well as a collection of images to rate are available on zooniverse \url{https://www.zooniverse.org/projects/simexp/brain-match/classify}
+\begin{center}
+\pgfimage[width=\linewidth]{fig_qc}\\
+\end{center}
+}
+
+% \frame{
+% \frametitle[Links]{Links}
+% 
+% \begin{figure}[ht]
+% \begin{minipage}{0.25\linewidth}
+% \centering
+% \pgfuseimage{package}\\
+% \end{minipage}
+% \begin{minipage}{0.7\linewidth}
+% The download page, with this pdf presentation, NIAK releases and demo datasets\\ \tiny{\url{http://www.nitrc.org/frs/?group_id=411}}
+% \end{minipage}
+% \end{figure}
+% 
+% \begin{figure}[ht]
+% \begin{minipage}{0.25\linewidth}
+% \centering
+% \pgfimage[width=0.5\linewidth]{qr_psom}\\
+% \end{minipage}
+% \begin{minipage}{0.7\linewidth}
+% The PSOM wiki, with tutorials and coding guidelines\\ \tiny{\url{http://code.google.com/p/niak/w/list}}
+% \end{minipage}
+% \end{figure}
+% 
+% \begin{figure}[ht]
+% \begin{minipage}{0.25\linewidth}
+% \centering
+% \pgfuseimage{angelniak}\\
+% \end{minipage}
+% \begin{minipage}{0.7\linewidth}
+% The NIAK online user's guide\\ \tiny{\url{http://www.nitrc.org/plugins/mwiki/index.php/niak:MainPage}}
+% \end{minipage}
+% \end{figure}
+% 
+% \begin{figure}[ht]
+% \begin{minipage}{0.25\linewidth}
+% \centering
+% \pgfuseimage{demoniak}\\
+% \end{minipage}
+% \begin{minipage}{0.7\linewidth}
+% The NIAK project page and developer's guide\\ \tiny{\url{http://code.google.com/p/niak/}}
+% \end{minipage}
+% \end{figure}
+% }
+
+\frame[containsverbatim]{
+\frametitle[License]{License}
+\tiny
+\begin{beamerboxesrounded}{The NIAK project is under an MIT opensource license}
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+\end{beamerboxesrounded}
+}
+\end{document}
