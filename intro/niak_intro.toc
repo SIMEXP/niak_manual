@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {english}
+\beamer@sectionintoc {1}{NIAK fMRI preprocessing pipeline}{2}{0}{1}
+\beamer@sectionintoc {2}{High-performance computing}{5}{0}{2}
+\beamer@sectionintoc {3}{Reproducible deployment}{9}{0}{3}
+\beamer@sectionintoc {4}{Testing and validation}{11}{0}{4}
+\beamer@sectionintoc {5}{Acknowledgements}{15}{0}{5}

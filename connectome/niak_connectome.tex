@@ -1,0 +1,178 @@
+
+\documentclass{beamer}
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+% %\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid} %%%%
+%\usetheme{Malmoe}
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+\definecolor{UDMblue}{RGB}{46,78,161}
+\setbeamercolor{structure}{fg=UDMblue}
+\usepackage[framed,autolinebreaks,useliterate]{mcode}
+
+}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\definecolor{command}{rgb}{0.95,0,0.05}
+\definecolor{comment}{rgb}{0.7,0.05,0.65}
+\definecolor{string}{rgb}{0.45,0.25,0.15}
+\definecolor{in}{rgb}{0.15,0.68,0.15}
+\definecolor{out}{rgb}{0.15,0.68,0.15}
+\definecolor{clean}{rgb}{0.15,0.68,0.15}
+\definecolor{opt}{rgb}{0.05,0.1,0.75}
+
+\begin{document}
+
+\pgfdeclareimage[height=1cm]{logo_mcgill}{mcgill}
+\pgfdeclareimage[height=1cm]{logo_mni}{neurolog}
+\pgfdeclareimage[height=1cm]{angelniak}{angelniak}
+\pgfdeclareimage[height=1.5cm]{angelniak_big}{angelniak}
+\pgfdeclareimage[height=1cm]{demoniak}{demoniak}
+\pgfdeclareimage[height=1.5cm]{demoniak_big}{demoniak}
+\pgfdeclareimage[height=1cm]{logo_psom}{logo_psom}
+\pgfdeclareimage[height=1cm]{package}{package}
+\pgfdeclareimage[width=10cm]{logos_criugm}{logos_criugm}
+\pgfdeclareimage[width=5cm]{logo_email}{fig_email.png}
+\title{The NIAK connectome pipeline}
+%\pgfuseimage{logo_twitter
+\author[P. Bellec]{Pierre Bellec \\ \vspace{0.5cm}\pgfuseimage{logo_email} }
+%\institute[BIC]{\vspace{-0.2cm}}
+\date[Montr\'eal 2017]{{\scriptsize{CRIUGM, DIRO, UdM}} \pgfuseimage{logos_criugm} }
+
+\frame{\titlepage}
+
+\frame[containsverbatim]{
+\frametitle[Flowchart]{Flowchart}
+\centering
+Connectome pipeline
+\pgfimage[width=0.8\linewidth]{fig_flowchart_connectome}\\
+\centering
+\tiny The \texttt{networks} and \texttt{seeds} input files have not been included for clarity.
+}
+
+\frame[containsverbatim]{
+\frametitle[template]{User template}
+\fontsize{7}{10}\selectfont
+\begin{beamerboxesrounded}{Grab preprocessed data}
+\begin{Verbatim}[numbers=left,commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`_=8}]
+opt\_g.min\_nb\_vol = 100;     
+opt\_g.min\_xcorr\_func = 0.5; 
+opt\_g.type\_files = 'glm\_connectome'; 
+{\color{in}files\_in}.fmri = niak\_grab\_fmri\_preprocess({\color{string}'/data/fmri\_preprocess'},opt\_g).fmri; 
+\end{Verbatim}
+\end{beamerboxesrounded}
+\begin{enumerate}
+ \item Set the minimum acceptable number of time frames that passed scrubbing.
+ \item Minimum spatial correlation between the individual BOLD volume and a group average (QC tool on coregistration).
+ \item Prepare the files to feed in the connectome pipeline
+ \item Grab the files
+\end{enumerate}
+}
+
+\frame[containsverbatim]{
+\frametitle[Input files]{Input files}
+\centering
+\pgfimage[width=0.9\linewidth]{fig_files_in_connectome}\\
+\centering
+}
+
+\frame[containsverbatim]{
+\frametitle[template]{User template ... continued}
+\tiny
+\begin{beamerboxesrounded}{Input file: brain parcellation}
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`\_=8}]
+files\_in.networks = \color{string}'/home/pbellec/svn/niak/template/roi\_aal\_3mm.mnc.gz';
+\end{Verbatim}
+\end{beamerboxesrounded}
+\vspace{0.5cm}
+\begin{beamerboxesrounded}{Input file: seed regions (csv files)}
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`\_=8}]
+files\_in.seeds    = \color{string}'/home/toto/database/list\_seeds.csv';
+\end{Verbatim}
+\end{beamerboxesrounded}
+\vspace{0.5cm}
+\begin{beamerboxesrounded}{Options}
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`_=8}]
+opt.connectome.type = \color{string}'Z';                   \color{comment}% The type of connectome.
+opt.connectome.thresh.type = \color{string}'sparsity\_pos'; \color{comment}% how to binarize the connectome.
+opt.connectome.thresh.param = 0.2;           \color{comment}% the cut-off on connectivity
+\end{Verbatim}
+\end{beamerboxesrounded}
+\vspace{0.5cm}
+\begin{beamerboxesrounded}{Run the pipeline}
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7\catcode`_=8}]
+pipeline = niak\_pipeline\_connectome({\color{in}files\_in},{\color{opt}opt\_pipe});
+\end{Verbatim}
+\end{beamerboxesrounded}
+}
+
+\frame[containsverbatim]{
+\frametitle[Graph properties]{Output: individual connectomes}
+\centering
+\pgfimage[width=0.9\linewidth]{fig_corr_map}\\
+\small Saved in individual .mat files.
+}
+
+\frame[containsverbatim]{
+\frametitle[Graph properties]{Output: graph properties}
+\centering
+\pgfimage[width=0.9\linewidth]{fig_connectome}\\
+\small Graph properties are generated with the brain connectivity toolbox \url{https://sites.google.com/site/bctnet/Home/functions}. See Rubinov and Sporns, Neuroimage 2010.
+}
+
+
+\frame[containsverbatim]{
+\frametitle[Connectivity maps]{Output: connectivity maps}
+\centering
+\pgfimage[width=0.6\linewidth]{fig_rmap}\\
+}
+
+
+\frame[containsverbatim]{
+\frametitle[License]{License}
+\tiny
+\begin{beamerboxesrounded}{The NIAK project is under an MIT opensource license}
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+\end{beamerboxesrounded}
+}
+\end{document}
